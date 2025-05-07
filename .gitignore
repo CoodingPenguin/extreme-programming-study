@@ -1,0 +1,51 @@
+# macOS
+.DS_Store
+
+# IntelliJ / PyCharm / Android Studio
+.idea/
+*.iml
+out/
+
+# VSCode
+.vscode/
+
+# Kotlin/Java build
+build/
+target/
+*.class
+
+# Logs
+*.log
+
+# Gradle
+.gradle/
+gradle-app.setting
+gradle-app.iml
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+env/
+venv/
+.venv/
+pip-wheel-metadata/
+.cache/
+.mypy_cache/
+.dmypy.json
+.pytest_cache/
+.tox/
+coverage.xml
+htmlcov/
+*.cover
+*.pyc
+
+# OS/Tool cruft
+*.swp
+*~
+.env
