@@ -12,9 +12,11 @@ data class Todo(
     val id: Long,
     val title: String,
     val description: String,
+    @Deprecated("status를 더이상 사용하지 않음")
     var status: TodoStatus = TodoStatus.TODO,
-    var doneAt: LocalDateTime? = null
-) {
+    var completedAt: LocalDateTime? = null,
+
+    ) {
     companion object {
         fun create(title: String, description: String): Todo {
             val id = Random.nextLong(1, 1000)
@@ -22,11 +24,9 @@ data class Todo(
         }
     }
 
-    fun updateStatus(status: TodoStatus) {
-        this.status = status
-        if (status == TodoStatus.DONE) {
-            this.doneAt = LocalDateTime.now()
-        }
+    fun updateCompletedAt(): Todo {
+        this.completedAt = LocalDateTime.now()
+        return this
     }
 }
 
@@ -37,16 +37,13 @@ class TodoService(private val todoRepository: TodoRepository) {
         return item
     }
 
-    fun getTodos(status: TodoStatus? = null): List<Todo> = if (status == null) {
+    fun getTodos(completed: Boolean? = null): List<Todo> = if (completed == null) {
         todoRepository.findAll()
     } else {
-        todoRepository.findByStatus(status)
+        todoRepository.findByComplete(completed)
     }
 
-    fun changeStatus(item: Todo, status: TodoStatus): Todo {
-        item.updateStatus(status)
-        return item
-    }
+    fun completeTodo(item: Todo): Todo = item.updateCompletedAt()
 }
 
 
@@ -62,8 +59,10 @@ class TodoRepository {
         return todoList.toList()
     }
 
-    fun findByStatus(status: TodoStatus): List<Todo> {
-        return todoList.filter { it.status == status }.toList()
+    fun findByComplete(completed: Boolean): List<Todo> = if (completed) {
+        todoList.filter { it.completedAt != null }.toList()
+    } else {
+        todoList.filter { it.completedAt == null }.toList()
     }
 
     fun clear() {
