@@ -4,7 +4,7 @@ import org.example.main
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 
-class testMain : StringSpec({
+class TestMain : StringSpec({
     "prints Hello, world!" {
         val output = ByteArrayOutputStream()
         val originalOut = System.out
