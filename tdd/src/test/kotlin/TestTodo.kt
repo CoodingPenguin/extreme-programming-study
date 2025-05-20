@@ -89,7 +89,7 @@ class TestTodo : StringSpec({
         doneStatusItems.size shouldBe 1
     }
 
-    "할일 상태가 DONE 으로 변경되면 완료 시간이 기록된다." {
+    "할일 상태가 완료로 변경되면 완료 시간이 기록된다." {
         val todoRepository = TodoRepository()
         val todoService = TodoService(todoRepository)
 
